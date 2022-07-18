@@ -1,28 +1,21 @@
 # Refer: https://knowledge.udacity.com/questions/711557
-- name: 'install node exporter.'
-  unarchive:
-      src: https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
-      dest: /tmp
-      remote_src: yes
-
-- name: 'move binary to /usr/local/bin.'
+---
+- name: 'upgrade packages.'
   become: true
-  copy:
-      src: /tmp/node_exporter-0.17.0.linux-amd64/node_exporter
-      dest: /usr/local/bin/node_exporter
-      remote_src: yes
-      mode: '0777'
+  apt:
+      upgrade: 'yes'
 
-- name: 'add node exporter configuration.'
+- name: 'install dependencies.'
   become: true
-  copy:
-      src: node_exporter.service
-      dest: /etc/systemd/system/
+  apt:
+      name: ['nodejs', 'npm']
+      state: latest
+      update_cache: yes
 
-- name: 'enable node_exporter service'
+- name: 'install pm2'
   become: true
-  systemd:
-      state: restarted
-      daemon_reload: yes
-      name: node_exporter
-      enabled: yes
+  npm:
+      name: pm2
+      global: yes
+      production: yes
+      state: present

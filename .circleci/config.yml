@@ -204,9 +204,12 @@ jobs:
           name: Run migrations
           command: |
             cd backend 
-            npm install 
-            npm i aws-cli
+            npm install
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
             npm run migrations > migrations_dump.txt
+            npm audit fix --audit-level=critical --force
       - run:
           name: Send migration results to kvdb
           command: |

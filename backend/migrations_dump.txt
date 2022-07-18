@@ -1,0 +1,12 @@
+
+> glee2@1.0.0 premigrations D:\WORKING AREA\Udacity_Devops_cloud\circleci-baolm1\backend
+> npm run build
+
+
+> glee2@1.0.0 build D:\WORKING AREA\Udacity_Devops_cloud\circleci-baolm1\backend
+> tsc
+
+
+> glee2@1.0.0 migrations D:\WORKING AREA\Udacity_Devops_cloud\circleci-baolm1\backend
+> ts-node -r dotenv/config node_modules/.bin/typeorm migration:run
+

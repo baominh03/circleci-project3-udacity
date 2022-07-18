@@ -325,20 +325,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update curl nodejs npm
-            pip install awscli  
-      - run:
-          name: Frontend smoke test.
-          command: |
-              URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-west-2.amazonaws.com/#/employees"            
-              echo ${URL} 
-              if curl -s ${URL} | grep "Welcome"
-              then
-                  # Change this to 0 after the job fails
-                return 0
-              else
-                return 1
-              fi
+            apk add curl
+            apk add --no-cache python py-pip
+            apk add --update py-pip
+            pip install --upgrade pip
+            pip install awscli
       - run:
           name: backend url / smoke test backend
           # Refer: https://knowledge.udacity.com/questions/862021
@@ -353,6 +344,18 @@ jobs:
               sleep 60
               if curl "${API_URL}/api/status" | grep "ok"
               then
+                return 0
+              else
+                return 1
+              fi
+      - run:
+          name: Frontend smoke test.
+          command: |
+              URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-west-2.amazonaws.com/#/employees"            
+              echo ${URL} 
+              if curl -s ${URL} | grep "Welcome"
+              then
+                  # Change this to 0 after the job fails
                 return 0
               else
                 return 1

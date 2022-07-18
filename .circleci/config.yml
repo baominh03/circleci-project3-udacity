@@ -209,7 +209,6 @@ jobs:
             unzip awscliv2.zip
             sudo ./aws/install
             npm run migrations > migrations_dump.txt
-            npm audit fix --audit-level=critical --force
       - run:
           name: Send migration results to kvdb
           command: |

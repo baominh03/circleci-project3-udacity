@@ -210,7 +210,6 @@ jobs:
             sudo apt-get update
             sudo apt-get install curl
             sudo apt-get install awscli
-            npm audit fix --audit-level=critical --force
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to kvdb

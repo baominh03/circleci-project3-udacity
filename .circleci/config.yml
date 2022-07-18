@@ -325,6 +325,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            cd backend
             apk add curl
             apk add --no-cache python py-pip
             apk add --update py-pip

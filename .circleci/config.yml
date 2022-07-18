@@ -169,8 +169,9 @@ jobs:
             pip install awscli
       - run:
           name: Configure server
+          working_directory: ./.circleci/ansible
           command: |
-            cd .circleci/ansible
+            echo PWD $(pwd)
             ansible-playbook -i inventory.txt configure-server.yml
 
 workflows:

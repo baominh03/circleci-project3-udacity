@@ -150,6 +150,7 @@ jobs:
           root: .circleci/ansible
           paths:
             - inventory.txt
+  
   configure-infrastructure:
     docker:
       # https://knowledge.udacity.com/questions/842597
@@ -168,8 +169,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cd ..
-            cd .circleci/ansible
+            cd /.circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
 
 workflows:

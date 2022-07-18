@@ -153,12 +153,12 @@ jobs:
   
   configure-infrastructure:
     docker:
-      # https://knowledge.udacity.com/questions/842597
       - image: python:3.7-alpine3.11
     steps:
       # Checkout code from git
       # Add ssh keys with fingerprint
       # attach workspace
+      - checkout
       - add_ssh_keys:
           fingerprints: 
             - "58:19:91:7a:ec:44:dc:51:4a:87:c6:b6:75:dc:d1:e8"
@@ -170,8 +170,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cd .circleci
-            cd ansible
+            cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
 
 workflows:

@@ -1,17 +1,17 @@
 # refer: https://knowledge.udacity.com/questions/711557
-- name: Copy backend files
+- name: copy backend files to server
   become: true
   copy:
-      src: /home/backend.tar.gz
-      dest: /home/ubuntu/backend.tar.gz
+      src: ~/project/artifact.tar.gz
+      dest: /home/ubuntu/artifact.tar.gz
 
-- name: Start PM2
+- name: extract artifact
   shell: |
-      cd /home/ubuntu/
-      tar xzvf backend.tar.gz
-      cd backend
-      sudo npm install -g npm@latest
-      sudo npm install -g webpack-dev-server
-      sudo npm install
-      sudo npm run build
-      sudo pm2 start npm --name backend -- start
+    cd home/ubuntu
+    tar -xzvf artifact.tar.gz -C .
+- name: start npm
+  shell: |
+    sudo npm install
+    sudo npm run build
+    sudo pm2 stop default
+    sudo pm2 start npm -- start

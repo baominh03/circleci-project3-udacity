@@ -1,4 +1,5 @@
 # Refer: https://learn.udacity.com/nanodegrees/nd9991/parts/cd0649/lessons/289b664b-435d-42d6-9a00-a80dc789a2fd/concepts/5800a42c-b8ba-4a4d-bb1f-4f1e71da8e91
+# https://knowledge.udacity.com/questions/711557
 ---
 - name: 'upgrade packages.'
   become: true
@@ -19,7 +20,7 @@
     apt-get install -y curl openssl libssl-dev
     curl -sL https://deb.nodesource.com/setup_12.x | bash -
     apt-get install -y nodejs
-    
+
 - name: 'install pm2'
   become: true
   npm:

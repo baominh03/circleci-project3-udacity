@@ -1,4 +1,10 @@
 # refer: https://knowledge.udacity.com/questions/711557
+- name: "install dependencies"
+  become: true
+  apt:
+    name: tar
+    state: latest
+    update_cache: yes
 - name: copy backend files to server
   become: true
   copy:

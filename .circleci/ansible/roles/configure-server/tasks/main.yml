@@ -8,7 +8,7 @@
   apt:
     upgrade: yes
 
-- name: "delete dependencies"
+- name: "delete unused dependencies"
   become: true
   apt:
     autoremove: yes
@@ -19,6 +19,14 @@
     name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
+
+- name: Install nodejs
+  become: true
+  shell: |
+    apt-get install -y build-essential
+    apt-get install -y curl openssl libssl-dev
+    curl -sL https://deb.nodesource.com/setup_12.x | bash -
+    apt-get install -y nodejs
 
 - name: "install pm2"
   become: true

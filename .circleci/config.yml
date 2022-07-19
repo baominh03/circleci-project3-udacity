@@ -279,16 +279,14 @@ jobs:
           # Refer: https://knowledge.udacity.com/questions/717091
           name: Get backend API
           command: |
-            export WorkFlowID="${CIRCLE_WORKFLOW_ID:0:7}"
-            echo "Workflow id: $WorkFlowID"
-            aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicDnsName' --filters "Name=tag:Name,Values=backend-$WorkFlowID" --output text > /tmp/api
-            echo "Found API: " $(cat /tmp/api)
-            curl -H "Content-Type: text/plain" -H "token: da647fff-0676-4705-a4fd-bda47a1e6aaa" --request PUT --data "$(cat /tmp/api)" https://api.memstash.io/values/backend-api
-            cat /tmp/api 
-            export BACKEND_API="$(curl -H 'token: da647fff-0676-4705-a4fd-bda47a1e6aaa' --request GET https://api.memstash.io/values/backend-api)"
+            export BACKEND_IP=$(aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text)
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo API_URL="http://${BACKEND_IP}:3030" >> "frontend/.env"
             export API_URL="http://${BACKEND_API}:3030"
             echo "${API_URL}"    
-            echo API_URL=$API_URL >> "frontend/.env"
             echo ENVIRONMENT=production  >> "frontend/.env" 
             echo NODE_ENV=production >> "frontend/.env"
             cat "frontend/.env"

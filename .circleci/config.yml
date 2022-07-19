@@ -213,6 +213,7 @@ jobs:
       - run:
           name: Configure server
           command: |
+            # Refer: https://knowledge.udacity.com/questions/389418
             echo ENVIRONMENT=production > "backend/.env"
             echo TYPEORM_CONNECTION=postgres >> "backend/.env"
             echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> "backend/.env"

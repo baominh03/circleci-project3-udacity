@@ -1,42 +1,21 @@
-# Refer: https://knowledge.udacity.com/questions/711557
+# Refer: https://learn.udacity.com/nanodegrees/nd9991/parts/cd0649/lessons/289b664b-435d-42d6-9a00-a80dc789a2fd/concepts/5800a42c-b8ba-4a4d-bb1f-4f1e71da8e91
 ---
-- name: "upgrade packages."
+- name: 'upgrade packages.'
   become: true
   apt:
-    upgrade: "yes"
-    update_cache: yes
+      upgrade: 'yes'
 
-- name: Install npm
+- name: 'install dependencies.'
   become: true
   apt:
-    name: npm
-    update_cache: yes
-    state: latest
+      name: ['nodejs', 'npm']
+      state: latest
+      update_cache: yes
 
-- name: Install nodejs
-  become: true
-  shell: |
-    apt-get install -y build-essential
-    apt-get install -y curl openssl libssl-dev
-    curl -sL https://deb.nodesource.com/setup_12.x | bash -
-    apt-get install -y nodejs
-     
-- name: Install pm2
+- name: 'install pm2'
   become: true
   npm:
-    name: pm2
-    state: present
-    global: yes
-    
-- name: add env param
-  become: true
-  shell: |
-    echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> ".env"
-    echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> ".env"
-    echo TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> ".env"
-    echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> ".env"
-    echo TYPEORM_HOST=$TYPEORM_HOST >> ".env"
-    echo TYPEORM_PORT=$TYPEORM_PORT >> ".env"
-    echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> ".env"
-    echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> ".env"
-    echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ".env"
+      name: pm2
+      global: yes
+      production: yes
+      state: present

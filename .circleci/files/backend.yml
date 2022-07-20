@@ -51,3 +51,8 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
+
+Outputs:
+    Appurl:
+        Value: !GetAtt EC2Instance.PublicDnsName
+        Description: get public url
